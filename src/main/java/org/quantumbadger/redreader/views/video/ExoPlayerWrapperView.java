@@ -37,6 +37,7 @@ import androidx.media3.common.PlaybackException;
 import androidx.media3.common.Player;
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.exoplayer.SeekParameters;
 import androidx.media3.exoplayer.source.MediaSource;
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector;
 import androidx.media3.ui.AspectRatioFrameLayout;
@@ -195,7 +196,8 @@ public class ExoPlayerWrapperView extends FrameLayout {
 							R.drawable.icon_step_back,
 							R.string.video_step_back,
 							view -> {
-								mVideoPlayer.seekTo(mVideoPlayer.getCurrentPosition() - 33);
+								long frameRate = mVideoPlayer.getVideoFormat() != null ?  30 : (long) mVideoPlayer.getVideoFormat().frameRate;
+								mVideoPlayer.seekTo(mVideoPlayer.getCurrentPosition() - frameRate);
 								updateProgress();
 							}
 					));
@@ -206,7 +208,8 @@ public class ExoPlayerWrapperView extends FrameLayout {
 							R.drawable.icon_step_forward,
 							R.string.video_step_forward,
 							view -> {
-								mVideoPlayer.seekTo(mVideoPlayer.getCurrentPosition() + 33);
+								long frameRate = mVideoPlayer.getVideoFormat() != null ?  30 : (long) mVideoPlayer.getVideoFormat().frameRate;
+								mVideoPlayer.seekTo(mVideoPlayer.getCurrentPosition() + frameRate);
 								updateProgress();
 							}
 					));
